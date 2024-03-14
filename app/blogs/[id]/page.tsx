@@ -1,26 +1,25 @@
 import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import React, { cache } from "react";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
-import AssigneeSelect from "@/app/api/blogs/[id]/AssigneeSelect";
+import AssigneeSelect from "./AssigneeSelect";
+import { cache } from "react";
 
 interface Props {
   params: { id: string };
 }
 
-const fetchUser = cache((blogId: number) =>
-  prisma.issue.findUnique({
-    where: { id: blogId },
-  })
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({ where: { id: issueId } })
 );
 
-const IssueDeatilPage = async ({ params }: Props) => {
+const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
+
   const issue = await fetchUser(parseInt(params.id));
 
   if (!issue) notFound();
@@ -30,24 +29,26 @@ const IssueDeatilPage = async ({ params }: Props) => {
       <Box className="md:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
-      {/* {session && ( */}
-      <Box>
-        <Flex direction="column" gap="4">
-          <AssigneeSelect issue={issue} />
-          <EditIssueButton issueId={issue.id} />
-          <DeleteIssueButton issueId={issue.id} />
-        </Flex>
-      </Box>
+      {session && (
+        <Box>
+          <Flex direction="column" gap="4">
+            <AssigneeSelect issue={issue} />
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
+        </Box>
+      )}
     </Grid>
   );
 };
 
-export async function generateMetaData({ params }: Props) {
-  const blog = await fetchUser(parseInt(params.id));
+export async function generateMetadata({ params }: Props) {
+  const issue = await fetchUser(parseInt(params.id));
+
   return {
-    title: blog?.title,
-    description: "Details of blog " + blog?.id,
+    title: issue?.title,
+    description: "Details of issue " + issue?.id,
   };
 }
 
-export default IssueDeatilPage;
+export default IssueDetailPage;
