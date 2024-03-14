@@ -37,7 +37,7 @@ const AboutMePage = () => {
       <Flex>
         <Heading>My Skill</Heading>
         {skills.map((skill) => (
-          <Flex gap="2">
+          <Flex gap="2" key={skill}>
             <span></span>
             <span key={skill} className={generateRandomColor()}>
               {" "}
