@@ -9,7 +9,7 @@ import MyProjects from "./components/MyPorjects";
 
 export default async function Home() {
   const open = await prisma.issue.count({
-    where: { status: "OPEN" },
+    where: { status: "FINISHED" },
   });
   const inProgress = await prisma.issue.count({
     where: { status: "IN_PROGRESS" },

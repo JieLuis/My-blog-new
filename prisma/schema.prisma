@@ -8,13 +8,14 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 model Issue {
   id               Int      @id @default(autoincrement())
   title            String   @db.VarChar(255)
   description      String   @db.Text
-  status           Status   @default(OPEN)
+  status           Status   @default(IN_PROGRESS)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   assignedToUserId String?  @db.VarChar(255)
@@ -22,7 +23,7 @@ model Issue {
 }
 
 enum Status {
-  OPEN
+  FINISHED
   IN_PROGRESS
   CLOSED
 }

@@ -55,7 +55,9 @@ const AboutMePage = () => {
           </Heading>
 
           {skills.map((skill) => (
-            <Badge color={generateRandomColor()}>{skill}</Badge>
+            <Badge key={skill} color={generateRandomColor()}>
+              {skill}
+            </Badge>
           ))}
         </Flex>
       </Card>

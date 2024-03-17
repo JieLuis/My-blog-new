@@ -6,7 +6,7 @@ const IssueActions = () => {
   return (
     <Flex className="space-x-3">
       <Button>
-        <Link href="/blogs/new">New Issue</Link>
+        <Link href="/blogs/new">New Blog</Link>
       </Button>
       <BlogStatusFilter />
     </Flex>

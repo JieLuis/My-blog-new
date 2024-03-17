@@ -16,7 +16,7 @@ const BlogSummary = ({ open, inProgress, closed }: Props) => {
     value: number;
     status: Status;
   }[] = [
-    { label: "Open Blogs", value: open, status: "OPEN" },
+    { label: "Open Blogs", value: open, status: "FINISHED" },
     { label: "InProgress Blogs", value: inProgress, status: "IN_PROGRESS" },
     { label: "Closed Blogs", value: closed, status: "CLOSED" },
   ];
