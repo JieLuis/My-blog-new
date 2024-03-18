@@ -66,6 +66,15 @@ model User {
   assignedIssue Issue[]
 }
 
+model Project {
+  id            String  @id @default(cuid())
+  title         String  @db.VarChar(255)
+  content       String  @db.Text
+  isFullStack   Boolean @default(false)
+  isAuthor      Boolean @default(false)
+  link          String?
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique

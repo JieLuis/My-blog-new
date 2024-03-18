@@ -1,49 +1,28 @@
+import prisma from "@/prisma/client";
 import { Badge, Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import React from "react";
+import Link from "next/link";
 
-const MyProjects = () => {
+const MyProjects = async () => {
+  const projects = await prisma.project.findMany();
+
   return (
     <>
-      <Heading className="text-center" color="blue">
-        Projects
-      </Heading>
-      <Box>
-        <Card>
-          <Flex>
-            <Heading color="sky">My Blog</Heading>
-            <Badge color="gold">Full Stack</Badge>
-          </Flex>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            libero assumenda repellendus doloremque totam veritatis voluptates
-            aliquid quia adipisci quasi exercitationem, recusandae dicta
-            consectetur ex, corporis nesciunt voluptatibus error perferendis!
-          </Text>
-        </Card>
-        <Card>
-          <Flex>
-            <Heading color="sky">My Blog</Heading>
-            <Badge color="gold">Full Stack</Badge>
-          </Flex>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            libero assumenda repellendus doloremque totam veritatis voluptates
-            aliquid quia adipisci quasi exercitationem, recusandae dicta
-            consectetur ex, corporis nesciunt voluptatibus error perferendis!
-          </Text>
-        </Card>
-        <Card>
-          <Flex>
-            <Heading color="sky">My Blog</Heading>
-            <Badge color="gold">Full Stack</Badge>
-          </Flex>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            libero assumenda repellendus doloremque totam veritatis voluptates
-            aliquid quia adipisci quasi exercitationem, recusandae dicta
-            consectetur ex, corporis nesciunt voluptatibus error perferendis!
-          </Text>
-        </Card>
+      <Box className="text-center mb-3">
+        <Heading color="blue">Projects</Heading>
+      </Box>
+      <Box className="flex flex-col space-y-4 mb-10">
+        {projects.map((project) => (
+          <Card key={project.id}>
+            <Flex>
+              <Link href={project.link || ""}>
+                <Heading color="sky">{project.title}</Heading>
+              </Link>
+              {project.isFullStack && <Badge color="gold">Full Stack</Badge>}
+            </Flex>
+            <Text>{project.content}</Text>
+          </Card>
+        ))}
       </Box>
     </>
   );

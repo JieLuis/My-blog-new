@@ -18,17 +18,19 @@ export default async function Home() {
     where: { status: "CLOSED" },
   });
   return (
-    <>
+    <main>
       <AboutMe />
-      <MyProjects />
-      <Grid columns={{ initial: "1", md: "2" }} gap="5">
-        <Flex direction="column" gap="5">
-          <BlogSummary open={open} inProgress={inProgress} closed={closed} />
-          <BlogChart open={open} inProgress={inProgress} closed={closed} />
-        </Flex>
-        <LatestBlogs />
-      </Grid>
-    </>
+      <div className="container mt-24 mx-auto px-12 py-4">
+        <MyProjects />
+        <Grid columns={{ initial: "1", md: "2" }} gap="5">
+          <Flex direction="column" gap="5">
+            <BlogSummary open={open} inProgress={inProgress} closed={closed} />
+            <BlogChart open={open} inProgress={inProgress} closed={closed} />
+          </Flex>
+          <LatestBlogs />
+        </Grid>
+      </div>
+    </main>
   );
 }
 

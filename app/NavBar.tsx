@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 
 const NavBar = () => {
   return (
-    <nav className="flex space-x-6 broder-b mb-5 px-5 h-14 items-center">
+    <nav className="flex space-x-6 broder-b mb-5 px-5 h-14 items-center border border-[#33353F]">
       <Link href="/">
         <PiGithubLogoFill />
       </Link>
@@ -27,6 +27,7 @@ const NavLinks = () => {
   const links = [
     { label: "Blogs", href: "/blogs" },
     { label: "About me", href: "/about-me" },
+    { label: "Projects", href: "/projects" },
     { label: "instagram", href: "https://www.instagram.com/henrqaz/" },
   ];
   const currentPath = usePathname();
